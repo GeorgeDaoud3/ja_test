@@ -7,8 +7,8 @@ pipeline {
     CLUSTER = "sofe3980u"
     CLUSTER_ZONE = "northamerica-northeast1-b"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
-    credentialsId = "green-tract-379622_2"
-    JENKINS_CRED = "green-tract-379622_2"
+    credentialsId = "green-tract-379622"
+    JENKINS_CRED = "green-tract-379622"
 	FE_SVC_NAME = "binaryCalculator-service"
   }
   
