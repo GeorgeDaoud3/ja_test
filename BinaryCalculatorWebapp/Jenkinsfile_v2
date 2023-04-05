@@ -55,11 +55,11 @@ spec:
     //    sh 'mvn clean test -f ./BinaryCalculatorWebapp/pom.xml'
     //  }
     //}
-    //stage ('build') {
-      //steps {
-        //sh 'mvn package -DskipTests -f ./BinaryCalculatorWebapp/pom.xml'
-      //}
-    //}
+    stage ('build') {
+      steps {
+        sh 'mvn package -DskipTests -f ./BinaryCalculatorWebapp/pom.xml'
+      }
+    }
     stage('Build and push image with Container Builder') {
       steps {
       //withCredentials([file(credentialsId: 'My Project 65158', variable: 'GOOGLE_AUTH')]) {
