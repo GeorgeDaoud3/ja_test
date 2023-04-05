@@ -72,7 +72,7 @@ spec:
 	stage('deploy to GKE') {
 		steps{
 			container('kubectl') {
-			dir('/builder/google-cloud-sdk/bin/kubectl'){
+			dir('/builder/google-cloud-sdk/bin'){
 			
 			// Change deployed image in canary to the one we just built
 			  //sh 'find / -name "kubectl" '
