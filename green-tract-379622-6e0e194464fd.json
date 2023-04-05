@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "green-tract-379622",
+  "private_key_id": "6e0e194464fd38f763f374bf7a6b9d3160424b39",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDyMCow7j0kDmT4\nZ1RJKIIo8NXEh4uZazi3PO6kNY6M7lbGxUt2LpDM5smGNLx4fnr2Q8J8ZExS6pKA\nG4HovE8K/QFFhB0nfI22befCzTSnwApiW1cDIe62+RYQ7Xf8gl8gvIeNK7oHe4Eq\n+irT7zVu6mDhPlHktiIHB4gP2X9mckCdDy2+rjHFjnEo2NXGCffW+ylWyBLthBWD\n+yFbUUhgIaUsbJyZVYGFxIChk/+cfRRIwL774LJCDtr0DRsdIs7DJxw4AdvukusV\niot+Bpwar5+S62ZcQDEZ5fjTceXkm1T199L+f4er1md+GyXVBq+IA6yM/V1VZNhl\nLqGHJ7B/AgMBAAECggEAMFQ4Nydzf/x3XbKQ+UBiKPVWUy+RRf5FhRtdq9scJTdy\njZvVYTINpzXuxR9E9O6Ybwg6iUQijvFMZtAWbnEVfOXcGRkyEC0kwmDQPOliNo92\nAwajKHbfAhhWtO4OYY9KmGfGzP8K0m9s6Tyey0gS651N0+TxxqgpxilUl4UZjUGg\nDpawx/R01zMjbXhhtzBGISUtGSz6Rlxb9VChLTIQBumCR4j9ddVz5oOzj2oH0wGQ\nmV/mcAr1Qg+HRwlvjwCUX2TRUh7hEGVbHfutOgphyiUUNaAln87MJc8XFb98LW+K\naRCNTUXui7bk7hgooWsTWlvvWJF5kpuhKD9uR1YKwQKBgQD5G9SMTTXPypeQOAAf\nm0SDpTqRzZC1HORj+ggTnByo4DUstWv+cAR82ftUy3+R5EK8mpDAPuK+be1Acrjo\n1Y19rRaZ0njmyEIbtx+K8BkF63X7F+V6glKMS/Xijbh5NiGJbCY4UdCMyGGTLJRF\nz1IBTx0p1YN33PGI715bBqwV7wKBgQD441LWZnHoT0sT0tKKuCQhmY1DC0UobXv7\nk828AXY2y1XMk8CqtlrjoRsSK91mJLlGC26tbOdMZ42/fZiAQd1dTSn7WdNHnPhh\nXv1b+XrhnZxA8rxprepvMlUncVNw5EXitADZyY1GkmNlJy9IcV+N0T70oe2AspBx\nP7J432AecQKBgHQRi49zykbvVn9UGHqhleLg8dFNvscklyYeMfUxIAlvrlcOkSsU\ndoLV7k0sJFyNxqqqOhfZNT0Vax5EVfPmzO5p38X8U2j0lhjj0kaiaIZhl69PCxVx\n85R7MC5HalTP7ABj68sCE/IEy7IPa2a7mrIRcr0zRvZqdAAhyA0RpszxAoGAFibd\nc5mwn7WXAA+uj4wuIxNwoDv7jsqX019nW0liBSR54XhxGICcfFAVgbuHvBSerN5N\nnn/n4kQBOL7r+NZj5m78wpNPG7ub28bBlBMTXctSYfF41YsWJ4l6TMVoYM7gbXoJ\n7VhkC5jx4cnoCnGUyKGMEefrpJ2//2Rk9R8khfECgYEA1702ft9Q6mnrxQW9xkW/\nhKyQ5RiNC0cvDb+gMNuxyAIccOjGEvSbP6hCvvNK66lXDgKuKyFls67Xnls9OgNd\nYQlsG+8gH5c2S8Q2noJ9wlGEAYn88jic8d/ZFGhwL0IMzRGFUyYVARVLiRhZu217\nFz4t04kAWSyngkZ15SIRp1o=\n-----END PRIVATE KEY-----\n",
+  "client_email": "jenkins-sa@green-tract-379622.iam.gserviceaccount.com",
+  "client_id": "106143982739762209787",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/jenkins-sa%40green-tract-379622.iam.gserviceaccount.com"
+}
