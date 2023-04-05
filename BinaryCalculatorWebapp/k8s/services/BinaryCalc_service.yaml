@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: binary-calculator-service
+  name: binary-calc-service
 spec:
   type: LoadBalancer
   ports:
