@@ -9,7 +9,7 @@ pipeline {
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
     credentialsId = "My Project 65158"
     JENKINS_CRED = "green-tract-379622"
-	FE_SVC_NAME = binaryCalculator-service
+	FE_SVC_NAME = "binaryCalculator-service"
   }
   
 agent {
