@@ -8,7 +8,7 @@ pipeline {
     CLUSTER_ZONE = "northamerica-northeast1-b"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
     credentialsId = "My Project 65158"
-    JENKINS_CRED = "green-tract-379622"
+    JENKINS_CRED = "green-tract-379622_2"
 	FE_SVC_NAME = "binaryCalculator-service"
   }
   
@@ -56,20 +56,20 @@ spec:
     //    sh 'mvn clean test -f ./BinaryCalculatorWebapp/pom.xml'
     //  }
     //}
-    stage ('build') {
-      steps {
-        sh 'mvn package -DskipTests -f ./BinaryCalculatorWebapp/pom.xml'
-      }
-    }
-    stage('Build and push image with Container Builder') {
-      steps {
-      container('gcloud') {
-		  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account jenkins-sa@green-tract-379622.iam.gserviceaccount.com --key-file=./green-tract-379622-6e0e194464fd.json --project=green-tract-379622"
-		  sh "/builder/google-cloud-sdk/bin/gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
-		}
+    //stage ('build') {
+      //steps {
+        //sh 'mvn package -DskipTests -f ./BinaryCalculatorWebapp/pom.xml'
+      //}
+    //}
+    //stage('Build and push image with Container Builder') {
+      //steps {
+      //container('gcloud') {
+		  //sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account jenkins-sa@green-tract-379622.iam.gserviceaccount.com --key-file=./green-tract-379622-6e0e194464fd.json --project=green-tract-379622"
+		  //sh "/builder/google-cloud-sdk/bin/gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
+		//}
 		
-      }
-    }
+      //}
+    //}
 	stage('deploy to GKE') {
 		steps{
 			container('kubectl') {
