@@ -75,6 +75,8 @@ spec:
 			dir('/builder/google-cloud-sdk/bin'){
 			
 			// Change deployed image in canary to the one we just built
+			   sh 'ls /builder/google-cloud-sdk/bin/g*'
+			   sh 'ls /builder/google-cloud-sdk/bin/k*'
 			  //sh 'find / -name "kubectl" '
 			  sh("sed -i.bak 's#binaryCalculator_ImageName#${IMAGE_TAG}#' ./BinaryCalculatorWebapp/k8s/production/*.yaml")
 			  step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'BinaryCalculatorWebapp/k8s/services', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
