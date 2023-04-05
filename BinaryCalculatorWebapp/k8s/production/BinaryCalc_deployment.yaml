@@ -6,15 +6,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: binary-calculator
+      app: binary-calc
   template:
     metadata:
       labels:
-        app: binary-calculator
+        app: binary-calc
     spec:
       containers:
         - image: binaryCalculator_ImageName
-          name: binary-calculator
+          name: binary-calc
           ports:
             - containerPort: 8080
-              name: binary-calculator
+              name: binary-calc
