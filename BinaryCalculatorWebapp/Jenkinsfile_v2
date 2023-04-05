@@ -74,8 +74,8 @@ spec:
 			container('kubectl') {
 			  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account jenkins-sa@green-tract-379622.iam.gserviceaccount.com --key-file=./green-tract-379622-6e0e194464fd.json --project=green-tract-379622"
 			  sh("sed -i.bak 's#binaryCalculator_ImageName#${IMAGE_TAG}#' ./BinaryCalculatorWebapp/k8s/production/*.yaml")
-			  sh "kubectl create -f ./BinaryCalculatorWebapp/k8s/production/*.yaml"
-			  sh "kubectl create -f ./BinaryCalculatorWebapp/k8s/services/*.yaml"
+			  sh "/builder/google-cloud-sdk/bin/kubectl create -f ./BinaryCalculatorWebapp/k8s/production/*.yaml"
+			  sh "/builder/google-cloud-sdk/bin/kubectl create -f ./BinaryCalculatorWebapp/k8s/services/*.yaml"
 			  
 			  sh("echo http://`kubectl --namespace=production get service/${FE_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${FE_SVC_NAME}")
 			}
