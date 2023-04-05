@@ -9,6 +9,7 @@ pipeline {
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
     credentialsId = "My Project 65158"
     JENKINS_CRED = "green-tract-379622"
+	FE_SVC_NAME = binaryCalculator-service
   }
   
 agent {
@@ -62,17 +63,23 @@ spec:
     }
     stage('Build and push image with Container Builder') {
       steps {
-      //withCredentials([file(credentialsId: 'My Project 65158', variable: 'GOOGLE_AUTH')]) {
-    //script {
       container('gcloud') {
-                  sh "ls -la"
-		  sh "ls -la ~"
 		  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account jenkins-sa@green-tract-379622.iam.gserviceaccount.com --key-file=./green-tract-379622-6e0e194464fd.json --project=green-tract-379622"
-		  sh "/builder/google-cloud-sdk/bin/gcloud asset search-all-iam-policies"
 		  sh "/builder/google-cloud-sdk/bin/gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
 		}
-	//}} 
+		
       }
     }
+	stage('deploy to GKE') {
+		steps{
+			container('kubectl') {
+			// Change deployed image in canary to the one we just built
+			  sh("sed -i.bak 's#binaryCalculator_ImageName#${IMAGE_TAG}#' ./BinaryCalculatorWebapp/k8s/production/*.yaml")
+			  step([$class: 'KubernetesEngineBuilder', namespace:'production', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/services', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
+			  step([$class: 'KubernetesEngineBuilder', namespace:'production', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/production', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
+			  sh("echo http://`kubectl --namespace=production get service/${FE_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${FE_SVC_NAME}")
+			  }
+		}
+	}
   }
 }
