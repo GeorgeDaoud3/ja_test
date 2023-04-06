@@ -47,7 +47,9 @@ spec:
       steps {
 	    checkout scm
         sh 'echo "Start of Job"'
-		//sh 'echo ${GCP_KEY}'
+		container('gcloud') {
+		  sh 'ls /builder/google-cloud-sdk/d*'
+		  }
       }
     }
     stage ('test') {
