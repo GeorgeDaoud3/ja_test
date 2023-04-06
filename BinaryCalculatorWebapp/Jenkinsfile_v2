@@ -8,7 +8,7 @@ pipeline {
     CLUSTER_ZONE = "northamerica-northeast1-b"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
     JENKINS_CRED = "My Project 65158"
-	FE_SVC_NAME = "binaryCalculator-service"
+	FE_SVC_NAME = "bin-calc-srv"
   }
   
 agent {
