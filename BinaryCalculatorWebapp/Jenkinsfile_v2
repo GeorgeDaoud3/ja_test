@@ -7,8 +7,7 @@ pipeline {
     JENKINS_CRED = "My Project 65158"
 	SVC_NAME = "bin-calc-srv"
 	SA_ID="jenkins-sa@green-tract-379622.iam.gserviceaccount.com"
-	//GCP_KEY= credentials('sa_key')
-	GCP_KEY= credentials('My Project 65158')
+	GCP_KEY= credentials('sa_key')
   }
   
 agent {
