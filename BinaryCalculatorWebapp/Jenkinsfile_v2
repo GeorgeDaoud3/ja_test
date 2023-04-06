@@ -71,7 +71,7 @@ spec:
     //}
 	stage('deploy to GKE') {
 		steps{
-			container('kubectl') {
+			//container('kubectl') {
 			  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account jenkins-sa@green-tract-379622.iam.gserviceaccount.com --key-file=./green-tract-379622-6e0e194464fd.json --project=green-tract-379622"
 			  sh("sed -i.bak 's#binaryCalculator_ImageName#${IMAGE_TAG}#' ./BinaryCalculatorWebapp/k8s/production/*.yaml")
 			  script{
@@ -91,7 +91,7 @@ spec:
 				echo "service is created"
 			  }}
 			  sh "/builder/google-cloud-sdk/bin/kubectl get  service bin-calc-srv  -o jsonpath='{.status.loadBalancer.ingress[0].ip}'"
-			}
+			//}
 		}
 	}
   }
