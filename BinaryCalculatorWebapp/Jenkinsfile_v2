@@ -16,6 +16,7 @@ agent {
     cloud "kubernetes"
 	label 'sample-app'
       defaultContainer 'jnlp'
+	  /*
       yaml """
 apiVersion: v1
 kind: Pod
@@ -38,6 +39,7 @@ spec:
     - cat
     tty: true
 """
+*/
 }
   }
   tools {
