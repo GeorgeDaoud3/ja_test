@@ -90,7 +90,7 @@ spec:
 			  catch (err) {
 				echo "service is created"
 			  }}
-			  echo "kubectl get  service bin-calc-srv  -o jsonpath='{.status.loadBalancer.ingress[0].ip}'"
+			  echo (kubectl get  service bin-calc-srv  -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 			}
 		}
 	}
