@@ -65,7 +65,9 @@ spec:
       container('gcloud') {
 
 		  sh "gcloud auth activate-service-account ${SA_ID} --key-file=${GCP_KEY} --project=${PROJECT}"
-		  sh "gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
+		  //sh "gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
+		  sh "docker build -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
+		  sh "docker push ${IMAGE_TAG}"
 		}		
       }
     }
