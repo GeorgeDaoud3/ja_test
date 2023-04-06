@@ -5,7 +5,8 @@ pipeline {
     APP_NAME = "binary-calculator"
 	IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}"
     JENKINS_CRED = "My Project 65158"
-	FE_SVC_NAME = "bin-calc-srv"
+	SVC_NAME = "bin-calc-srv"
+	SA_ID="jenkins-sa@green-tract-379622.iam.gserviceaccount.com"
   }
   
 agent {
@@ -49,11 +50,7 @@ spec:
     }
     stage ('test') {
       steps {
-	  container('gcloud') {
-		  withCredentials([file(credentialsId: 'sa_key', variable: 'GC_KEY')]){
-		  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account jenkins-sa@green-tract-379622.iam.gserviceaccount.com --key-file=${SA_KEY} --project=green-tract-379622"}
         sh 'mvn clean test -f ./BinaryCalculatorWebapp/pom.xml'
-		}
       }
     }
     stage ('build') {
@@ -65,7 +62,7 @@ spec:
       steps {
       container('gcloud') {
 
-		  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account jenkins-sa@green-tract-379622.iam.gserviceaccount.com --key-file=./green-tract-379622-6e0e194464fd.json --project=green-tract-379622"
+		  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account ${SA_ID} --key-file=./green-tract-379622-6e0e194464fd.json --project=${PROJECT}"
 		  sh "/builder/google-cloud-sdk/bin/gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
 		}		
       }
@@ -73,7 +70,7 @@ spec:
 	stage('deploy to GKE') {
 		steps{
 			container('kubectl') {
-			  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account jenkins-sa@green-tract-379622.iam.gserviceaccount.com --key-file=./green-tract-379622-6e0e194464fd.json --project=green-tract-379622"
+			  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account ${SA_ID} --key-file=./green-tract-379622-6e0e194464fd.json --project=${PROJECT}"
 			  sh("sed -i.bak 's#binaryCalculator_ImageName#${IMAGE_TAG}#' ./BinaryCalculatorWebapp/k8s/production/*.yaml")
 			  script{
 			  try
@@ -91,7 +88,7 @@ spec:
 			  catch (err) {
 				echo "service is created"
 			  }}
-			  sh "/builder/google-cloud-sdk/bin/kubectl get  service bin-calc-srv  -o jsonpath='{.status.loadBalancer.ingress[0].ip}'"
+			  sh "/builder/google-cloud-sdk/bin/kubectl get  service ${SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'"
 			}
 		}
 	}
