@@ -8,7 +8,7 @@ pipeline {
 	SVC_NAME = "bin-calc-srv"
 	SA_ID="jenkins-sa@green-tract-379622.iam.gserviceaccount.com"
 	GCP_KEY= credentials('sa_key')
-	PATH = "/builder/google-cloud-sdk/bin:${env.PATH}"
+	PATH = "/builder/google-cloud-sdk/bin:/builder/google-cloud-sdk/lib/third_party/:${env.PATH}"
   }
   
 agent {
@@ -48,11 +48,6 @@ spec:
       steps {
 	    checkout scm
         sh 'echo "Start of Job"'
-		echo "PATH is: ${env.PATH}"
-		container('gcloud'){
-			echo "PATH is: ${env.PATH}"
-		}
-		// /builder/google-cloud-sdk/lib/third_party/
       }
     }
     stage ('test') {
@@ -69,33 +64,33 @@ spec:
       steps {
       container('gcloud') {
 
-		  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account ${SA_ID} --key-file=${GCP_KEY} --project=${PROJECT}"
-		  sh "/builder/google-cloud-sdk/bin/gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
+		  sh "gcloud auth activate-service-account ${SA_ID} --key-file=${GCP_KEY} --project=${PROJECT}"
+		  sh "gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
 		}		
       }
     }
 	stage('deploy to GKE') {
 		steps{
 			container('kubectl') {
-			  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account ${SA_ID} --key-file=${GCP_KEY} --project=${PROJECT}"
+			  sh "gcloud auth activate-service-account ${SA_ID} --key-file=${GCP_KEY} --project=${PROJECT}"
 			  sh("sed -i.bak 's#binaryCalculator_ImageName#${IMAGE_TAG}#' ./BinaryCalculatorWebapp/k8s/production/*.yaml")
 			  script{
 			  try
 			  {
-				sh "/builder/google-cloud-sdk/bin/kubectl delete -f ./BinaryCalculatorWebapp/k8s/production/*.yaml"
+				sh "kubectl delete -f ./BinaryCalculatorWebapp/k8s/production/*.yaml"
 			  }
 			  catch (err) {
 				echo "service was not created before"
 			  }}
-			  sh "/builder/google-cloud-sdk/bin/kubectl create -f ./BinaryCalculatorWebapp/k8s/production/*.yaml"
+			  sh "kubectl create -f ./BinaryCalculatorWebapp/k8s/production/*.yaml"
 			  script{
 			  try{
-				sh "/builder/google-cloud-sdk/bin/kubectl create -f ./BinaryCalculatorWebapp/k8s/services/*.yaml"
+				sh "kubectl create -f ./BinaryCalculatorWebapp/k8s/services/*.yaml"
 			  }
 			  catch (err) {
 				echo "service is created"
 			  }}
-			  sh "/builder/google-cloud-sdk/bin/kubectl get  service ${SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'"
+			  sh "kubectl get  service ${SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'"
 			}
 		}
 	}
