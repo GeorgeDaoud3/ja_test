@@ -8,7 +8,7 @@ pipeline {
 	SVC_NAME = "bin-calc-srv"
 	SA_ID="jenkins-sa@green-tract-379622.iam.gserviceaccount.com"
 	GCP_KEY= credentials('sa_key')
-	PATH = "/builder/google-cloud-sdk/bin:/builder/google-cloud-sdk/lib/third_party/:${env.PATH}"
+	PATH = "/builder/google-cloud-sdk/bin:${env.PATH}"
   }
   
 agent {
@@ -65,9 +65,7 @@ spec:
       container('gcloud') {
 
 		  sh "gcloud auth activate-service-account ${SA_ID} --key-file=${GCP_KEY} --project=${PROJECT}"
-		  //sh "gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
-		  sh "docker build -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
-		  sh "docker push ${IMAGE_TAG}"
+		  sh "gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
 		}		
       }
     }
