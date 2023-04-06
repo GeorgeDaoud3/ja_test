@@ -49,9 +49,11 @@ spec:
     }
     stage ('test') {
       steps {
-	  	  withCredentials([file(credentialsId: 'sa_key', variable: 'GC_KEY')]){
-			echo "${SA_KEY}" }
+	  container('gcloud') {
+		  withCredentials([file(credentialsId: 'sa_key', variable: 'GC_KEY')]){
+		  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account jenkins-sa@green-tract-379622.iam.gserviceaccount.com --key-file=${SA_KEY} --project=green-tract-379622"}
         sh 'mvn clean test -f ./BinaryCalculatorWebapp/pom.xml'
+		}
       }
     }
     stage ('build') {
