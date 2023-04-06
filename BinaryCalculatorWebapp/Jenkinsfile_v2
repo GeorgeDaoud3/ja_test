@@ -8,6 +8,7 @@ pipeline {
 	SVC_NAME = "bin-calc-srv"
 	SA_ID="jenkins-sa@green-tract-379622.iam.gserviceaccount.com"
 	GCP_KEY= credentials('sa_key')
+	PATH = "/builder/google-cloud-sdk/bin:${env.PATH}"
   }
   
 agent {
@@ -47,9 +48,11 @@ spec:
       steps {
 	    checkout scm
         sh 'echo "Start of Job"'
-		container('gcloud') {
-		  sh 'find / -name "docker"'
-		  }
+		echo "PATH is: ${env.PATH}"
+		container('gcloud'){
+			echo "PATH is: ${env.PATH}"
+		}
+		// /builder/google-cloud-sdk/lib/third_party/
       }
     }
     stage ('test') {
