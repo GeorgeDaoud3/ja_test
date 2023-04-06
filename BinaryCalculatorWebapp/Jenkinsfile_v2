@@ -47,7 +47,7 @@ spec:
       steps {
 	    checkout scm
         sh 'echo "Start of Job"'
-		sh 'echo ${GCP_KEY}'
+		//sh 'echo ${GCP_KEY}'
       }
     }
     stage ('test') {
@@ -64,7 +64,7 @@ spec:
       steps {
       container('gcloud') {
 
-		  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account ${SA_ID} --key-file=./green-tract-379622-6e0e194464fd.json --project=${PROJECT}"
+		  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account ${SA_ID} --key-file=${GCP_KEY} --project=${PROJECT}"
 		  sh "/builder/google-cloud-sdk/bin/gcloud builds submit -t ${IMAGE_TAG} ./BinaryCalculatorWebapp/"
 		}		
       }
@@ -72,7 +72,7 @@ spec:
 	stage('deploy to GKE') {
 		steps{
 			container('kubectl') {
-			  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account ${SA_ID} --key-file=./green-tract-379622-6e0e194464fd.json --project=${PROJECT}"
+			  sh "/builder/google-cloud-sdk/bin/gcloud auth activate-service-account ${SA_ID} --key-file=${GCP_KEY} --project=${PROJECT}"
 			  sh("sed -i.bak 's#binaryCalculator_ImageName#${IMAGE_TAG}#' ./BinaryCalculatorWebapp/k8s/production/*.yaml")
 			  script{
 			  try
