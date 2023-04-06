@@ -48,7 +48,7 @@ spec:
 	    checkout scm
         sh 'echo "Start of Job"'
 		container('gcloud') {
-		  sh 'ls /builder/google-cloud-sdk/d*'
+		  sh 'find / -name "docker"'
 		  }
       }
     }
